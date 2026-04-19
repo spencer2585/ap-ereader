@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { FilePicker } from './components/FilePicker'
 import './App.css'
+import { Reader } from './components/Reader'
 
 type BookFormat = 'epub' | 'pdf'
 
@@ -28,10 +29,12 @@ function App() {
   return (
     <div className="app">
       {book ? (
-        <div>
-          <p>Book Loaded: {book.file.name} ({book.format}) </p>
-          <button onClick={handleCloseBook}>Close Book</button>
-        </div>
+        <Reader
+        file={book.file}
+        format = {book.format}
+        url={book.url}
+        onClose={handleCloseBook}
+        />
       ):(
         <FilePicker onFileSelected={handleFileSelected}/>
       )}
