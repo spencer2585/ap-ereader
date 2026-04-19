@@ -29,12 +29,12 @@ jobs:
         with:
           path: dist
 
-deploy:
-  needs: build
-  runs-on: ubuntu-latest
-  enviroment:
-    name: github-pages
-    url: ${{ steps.deployment.outputs.page_url }}
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
