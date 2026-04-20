@@ -45,7 +45,7 @@ export function Reader({ file, format, url, onClose}: Props){
                 <span className="reader-title">{file.name}</span>
             </header>
 
-            <div className="reader=viewport">
+            <div className="reader-viewport">
                 {format === 'epub'? (
                     <EpubReader
                     file={file}

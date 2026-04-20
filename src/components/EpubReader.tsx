@@ -30,7 +30,7 @@ export function EpubReader({
     file.arrayBuffer().then((buffer) => {
       if (cancelled) return
 
-      const book = ePub(buffer)
+      const book = ePub(buffer, {openAs: 'binary'})
       bookRef.current = book
 
       const rendition = book.renderTo(viewport, {
