@@ -4,7 +4,7 @@ import type { ReaderLocation } from './Reader'
 interface Props{
     url:string
     onLocationChange: (loc: ReaderLocation) => void
-    navCommands: 'prev'|'next'|null
+    navCommand: 'prev'|'next'|null
     onCommandConsumed:()=>void
 }
 
