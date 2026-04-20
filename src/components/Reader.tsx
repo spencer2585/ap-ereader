@@ -17,7 +17,7 @@ interface Props {
     onClose: () => void
 }
 
-export function Reader({ file, format, url, onClose}: Props){
+export function Reader({ file, format, onClose}: Props){
     const [location, setLocation] = useState<ReaderLocation>({
         label: 'Loading...',
         canGoPrev: false,
@@ -55,7 +55,7 @@ export function Reader({ file, format, url, onClose}: Props){
                     />
                 ):(
                     <PdfReader
-                    url={url}
+                    file={file}
                     onLocationChange={setLocation}
                     navCommand={navCommand}
                     onCommandConsumed={handleCommandConsumed}
