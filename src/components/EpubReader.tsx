@@ -58,6 +58,14 @@ export function EpubReader({
         })
       })
 
+      rendition.on('swiped', ({ direction}: {direction: 'left' | 'right'}) => {
+        if (direction === 'left') {
+          rendition.next()
+        } else if (direction === 'right') {
+          rendition.prev()
+        }
+      })
+
       rendition.display()
     })
 

@@ -3,6 +3,7 @@ import * as pdfjsLib from 'pdfjs-dist'
 import type { PDFDocumentProxy, RenderTask } from 'pdfjs-dist'
 import workerUrl from 'pdfjs-dist/build/pdf.worker.mjs?url'
 import type { ReaderLocation } from './Reader'
+import type {PointerEvent} from 'react'
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = workerUrl
 
@@ -134,8 +135,28 @@ export function PdfReader({
         onCommandConsumed()
     }, [navCommand, currentPage, numPages, onCommandConsumed])
 
+    const pointerStartRef = useRef<number | null>(null)
+
+    function handlePointerDown(e: PointerEvent) {
+        pointerStartRef.current = e.clientX
+    }
+
+    function handlePointerUp(e: PointerEvent) {
+        if (pointerStartRef.current === null) return
+
+        const deltaX = e.clientX - pointerStartRef.current
+        pointerStartRef.current = null
+
+        const threshold = 50
+        if (deltaX > threshold) {
+            setCurrentPage((p) => Math.max(1, p - 1))
+        } else if (deltaX < -threshold) {
+            setCurrentPage((p) => Math.min(numPages, p + 1))
+        }
+    }
+
     return (
-        <div ref={containerRef} className="pdf-container">
+        <div ref={containerRef} className="pdf-container" onPointerDown={handlePointerDown} onPointerUp={handlePointerUp}>
         <canvas ref={canvasRef} className = "pdf-canvas" />
             </div>
     )
